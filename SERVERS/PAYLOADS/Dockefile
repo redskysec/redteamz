@@ -1,0 +1,9 @@
+FROM nginx
+
+ADD configs/ /etc/nginx/conf.d/
+ADD static /var/www/html/
+
+RUN apt update -y && apt install awscli
+
+
+entrypoint ['nginx']

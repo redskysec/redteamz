@@ -1,0 +1,8 @@
+services:
+  beef:
+    image: beef-xss
+    build:
+      context: .
+      dockerfile: Dockerfile.beef
+    ports:
+      - 3000:3000

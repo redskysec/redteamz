@@ -1,0 +1,3 @@
+C2 RED
+- C2 REDIRECTOR
+TRAEFIK or socat
