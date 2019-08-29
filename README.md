@@ -8,7 +8,7 @@ Phishing Server
  - gopish
 
 Payload Server
- - nginx
+ - nginx, storage s3
 
 ------- LAYER1
 
@@ -16,10 +16,10 @@ SMTPRELAY
  - POSTFIX
 
 Payload Redirector
- - TRAEFIK
+ - HAPROXY
 
 C2 REDIRECTOR
- - HAPROXY
+ - TRAEFIK
 
 ---------------------
 
