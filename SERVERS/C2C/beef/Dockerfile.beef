@@ -14,13 +14,16 @@ RUN  apt-get update \
         build-essential \
         git \
         libsqlite3-dev \
+        nodejs \
         software-properties-common sqlite3 \
+        netcat curl iputils-ping \
      && apt-add-repository -y ppa:brightbox/ruby-ng \
      && apt-get update \
      && apt-get install -y \
-        ruby2.3 \
-        ruby2.3-dev \
-        zlib-dev \
+        ruby2.4 \
+        ruby2.4-dev \
+        zlib1g \
+        zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN gem install bundler
@@ -30,10 +33,13 @@ WORKDIR /opt
 RUN git clone git://github.com/beefproject/beef.git
 
 WORKDIR /opt/beef
+ADD configs/beef.yaml /opt/beef/beef.yaml
+ADD configs/metasploit-conf.yaml /opt/beef/extensions/metasploit/config.yaml
 
 RUN bundle install
 
 EXPOSE 3000
 
-CMD ["./beef"]
-
+ADD entrypoint.sh entrypoint.sh
+#CMD ["./beef", '-c', '/opt/beef/beef.yaml']
+entrypoint bash entrypoint.sh
