@@ -1,5 +1,10 @@
-sudo su -c """
+sudo su - -C """
+
+
 sudo apt-get update
+
+sudo apt install -y make tmux
+
 sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
