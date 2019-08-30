@@ -1,0 +1,18 @@
+[file]
+
+[backends]
+ [backends.backend1]
+
+ [backends.backend1.servers]
+   [backends.backend1.servers.server0]
+   url = "http://c2.agm1.us"
+   # note that you cannot add path in 'url' field
+
+[frontends]
+  [frontends.frontend1]
+  entryPoints = ["http"]
+  backend = "backend1"
+  passHostHeader = true
+  [frontends.frontend1.routes]
+    [frontends.frontend1.routes.route0]
+    rule = "Host:www.myweb.com"

@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  proxy:
+    image: traefik:v1.7.6-alpine
+    command: --web --docker --logLevel=INFO
+    restart: unless-stopped
+    networks:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "traefik.frontend.rule=Host:traefik.example.tech"
+      - "traefik.port=8080"
+      - "traefik.frontend.auth.basic=admin:<PASSWORD>"
+    volumes:
+      #      - /var/run/docker.sock:/var/run/docker.sock
+      - ./configs/traefik.toml:/traefik.toml
+      - /opt/traefik/acme.json:/acme.json
+networks:
+  web:
+    external: true
