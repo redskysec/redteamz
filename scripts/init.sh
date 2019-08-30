@@ -1,4 +1,4 @@
-
+sudo su -c """
 sudo apt-get update
 sudo apt-get install -y \
     apt-transport-https \
@@ -22,7 +22,9 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 
+cd ~
 mkdir workspace
 cd workspace
 
 git clone git@github.com:sharpspring/shsp-redteam.git
+"""
