@@ -1,12 +1,12 @@
 up-msf:
-	bash -x metasploit-framework/docker/bin/msfconsole
+	docker-compose up ms 
 up-beef:
 	#cd metasploit-framework && \
 	#docker-compose -f docker-compose.yml.full up beef
-	cd beef && docker-compose up
+	docker-compose up beef
 build-all:
-	make build-msf
-	make build-beef
+	make build-msf &
+	make build-beef &
 
 build-msf:
 	cd metasploit-framework && docker-compose build

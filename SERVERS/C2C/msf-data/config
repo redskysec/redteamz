@@ -1,0 +1,9 @@
+[framework/database/DI54IcOd]
+url=postgres:password@db:5432/msf?pool=200&timeout=5
+
+[framework/database/RqdwL3k3]
+url=postgres:password@db:5432/msf?pool=200&timeout=5
+
+[framework/database/eTJZqI7u]
+url=postgres:password@db:5432/msf?pool=200&timeout=5
+

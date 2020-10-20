@@ -1,0 +1,23 @@
+[10/20/2020 05:03:52] [e(0)] core: Failed to connect to the database: No database YAML file
+[10/20/2020 05:03:52] [d(0)] core: Created user based module store
+[10/20/2020 05:03:53] [e(0)] core: Dependency for windows/x64/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:03:53] [e(0)] core: Dependency for windows/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:03:53] [e(0)] core: Dependency for windows/x64/encrypted_reverse_tcp is not supported
+[10/20/2020 05:03:53] [e(0)] core: Dependency for windows/encrypted_reverse_tcp is not supported
+[10/20/2020 05:03:54] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/gather/office365userenum.py, unknown module type
+[10/20/2020 05:05:08] [e(0)] core: Failed to connect to the database: No database YAML file
+[10/20/2020 05:05:09] [e(0)] core: Dependency for windows/x64/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:05:09] [e(0)] core: Dependency for windows/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:05:09] [e(0)] core: Dependency for windows/x64/encrypted_reverse_tcp is not supported
+[10/20/2020 05:05:09] [e(0)] core: Dependency for windows/encrypted_reverse_tcp is not supported
+[10/20/2020 05:05:09] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/gather/office365userenum.py, unknown module type
+[10/20/2020 05:05:11] [e(0)] core: Dependency for windows/x64/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:05:11] [e(0)] core: Dependency for windows/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:05:11] [e(0)] core: Dependency for windows/x64/encrypted_reverse_tcp is not supported
+[10/20/2020 05:05:11] [e(0)] core: Dependency for windows/encrypted_reverse_tcp is not supported
+[10/20/2020 05:09:33] [e(0)] core: Failed to connect to the database: No database YAML file
+[10/20/2020 05:09:34] [e(0)] core: Dependency for windows/x64/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:09:34] [e(0)] core: Dependency for windows/encrypted_shell_reverse_tcp is not supported
+[10/20/2020 05:09:34] [e(0)] core: Dependency for windows/x64/encrypted_reverse_tcp is not supported
+[10/20/2020 05:09:34] [e(0)] core: Dependency for windows/encrypted_reverse_tcp is not supported
+[10/20/2020 05:09:34] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/gather/office365userenum.py, unknown module type

@@ -73,11 +73,23 @@ func (s *ModelsSuite) TestSMTPGetDialer(ch *check.C) {
 	dialer := d.(*Dialer).Dialer
 	ch.Assert(dialer.Host, check.Equals, host)
 	ch.Assert(dialer.Port, check.Equals, port)
-	ch.Assert(dialer.TLSConfig.ServerName, check.Equals, smtp.Host)
+	ch.Assert(dialer.TLSConfig.ServerName, check.Equals, host)
 	ch.Assert(dialer.TLSConfig.InsecureSkipVerify, check.Equals, smtp.IgnoreCertErrors)
 }
 
 func (s *ModelsSuite) TestGetInvalidSMTP(ch *check.C) {
 	_, err := GetSMTP(-1, 1)
 	ch.Assert(err, check.Equals, gorm.ErrRecordNotFound)
+}
+
+func (s *ModelsSuite) TestDefaultDeniedDial(ch *check.C) {
+	host := "169.254.169.254"
+	port := 25
+	smtp := SMTP{
+		Host: fmt.Sprintf("%s:%d", host, port),
+	}
+	d, err := smtp.GetDialer()
+	ch.Assert(err, check.Equals, nil)
+	_, err = d.Dial()
+	ch.Assert(err, check.ErrorMatches, ".*upstream connection denied.*")
 }

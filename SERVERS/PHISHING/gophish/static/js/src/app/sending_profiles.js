@@ -36,7 +36,7 @@ function sendTestEmail() {
         })
         .error(function (data) {
             $("#sendTestEmailModal\\.flashes").empty().append("<div style=\"text-align:center\" class=\"alert alert-danger\">\
-	    <i class=\"fa fa-exclamation-circle\"></i> " + data.responseJSON.message + "</div>")
+	    <i class=\"fa fa-exclamation-circle\"></i> " + escapeHtml(data.responseJSON.message) + "</div>")
             $("#sendTestModalSubmit").html(btnHtml)
         })
 }
@@ -104,7 +104,7 @@ var dismissSendTestEmailModal = function () {
 
 
 var deleteProfile = function (idx) {
-    swal({
+    Swal.fire({
         title: "Are you sure?",
         text: "This will delete the sending profile. This can't be undone!",
         type: "warning",
@@ -125,12 +125,14 @@ var deleteProfile = function (idx) {
                     })
             })
         }
-    }).then(function () {
-        swal(
-            'Sending Profile Deleted!',
-            'This sending profile has been deleted!',
-            'success'
-        );
+    }).then(function (result) {
+        if (result.value){
+            Swal.fire(
+                'Sending Profile Deleted!',
+                'This sending profile has been deleted!',
+                'success'
+            );
+        }
         $('button:contains("OK")').on('click', function () {
             location.reload()
         })
@@ -198,8 +200,9 @@ function load() {
                     }]
                 });
                 profileTable.clear()
+                profileRows = []
                 $.each(profiles, function (i, profile) {
-                    profileTable.row.add([
+                    profileRows.push([
                         escapeHtml(profile.name),
                         profile.interface_type,
                         moment(profile.modified_date).format('MMMM Do YYYY, h:mm:ss a'),
@@ -212,8 +215,9 @@ function load() {
                     <button class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Delete Profile' onclick='deleteProfile(" + i + ")'>\
                     <i class='fa fa-trash-o'></i>\
                     </button></div>"
-                    ]).draw()
+                    ])
                 })
+                profileTable.rows.add(profileRows).draw()
                 $('[data-toggle="tooltip"]').tooltip()
             } else {
                 $("#emptyMessage").show()
