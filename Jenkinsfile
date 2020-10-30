@@ -26,24 +26,22 @@ def notifyBuild(String buildStatus = 'STARTED', String message = '') {
 }
 def buildPath(String buildPath){
 
-
-
-    stage('Generate K8s Templates buildPath ' + buildPath) {
-      steps {
-        notifyBuild('Starting K8s staging nginx builds')
-        script {
-            notifyBuild('Generating Templates')
-              container('builder') {   
-                dir(buildPath){
-                  sh("export BUILDTAG=${COMMIT}; export BRANCH_NAME=${env.BRANCH_NAME}; make template-without-secrets")
-                }
-              }
-              notifyBuild("Templates Done " + buildPath)
-          }
-        
-      }  
-   }
-}     
+  notifyBuild('Generating Templates')
+    container('builder') {   
+      dir(buildPath){
+        sh("export BUILDTAG=${COMMIT}; export BRANCH_NAME=${env.BRANCH_NAME}; make template-without-secrets")
+      }
+    }
+    notifyBuild("Templates Done " + buildPath)
+} 
+def buildImagePath(String buildPath, string imageName){
+  container('docker') {
+    docker.withRegistry('https://us.gcr.io', 'gcr:st2dio') {
+      app = docker.build("${imageName}" , "${buildPath}")  
+      sh("docker push ${imageName}")
+    }
+  }
+}
 pipeline {
   environment {
     COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
@@ -57,9 +55,15 @@ pipeline {
     ENVSPACE = "${env.APP_NAME}-${env.BRANCH_NAME}"
 
     PATH_SERVERS_BASE = "${env.WORKSPACE}/SERVERS"
-    PATH_SERVERS_BASE_GOPHISH = "${PATH_SERVERS_BASE}/PHISHING/gophish"
 
+    PATH_SERVERS_BASE_GOPHISH = "${PATH_SERVERS_BASE}/PHISHING/gophish"
     IMAGE_TAG_GOPHISH = "us.gcr.io/${PROJECT}/${APP_NAME}-gophish:${COMMIT}"
+
+    PATH_SERVERS_BASE_BEEF = "${PATH_SERVERS_BASE}/C2C/beef"
+    IMAGE_TAG_BEEF = "us.gcr.io/${PROJECT}/${APP_NAME}-beef:${COMMIT}"
+
+
+
   }
   agent {
     kubernetes {
@@ -165,10 +169,16 @@ spec:
         notifyBuild('checkout scm')
       }
     }
-  
+    stage('Docker Builds') {
+      steps {
+        notifyBuild('Build Docker')
+        script {
+           buildImagePath(PATH_SERVERS_BASE_GOPHISH, IMAGE_TAG_GOPHISH)
+           buildImagePath(PATH_SERVERS_BASE_BEEF, IMAGE_TAG_BEEF)
+        }
+      }  
+   }
    
-  buildPath(PATH_SERVERS_BASE_GOPHISH)
-
    stage('Deploy staging K8s ') {
       steps {
        script {
