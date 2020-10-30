@@ -1,6 +1,7 @@
-application_name: portalvortex-public
+application_name: redteamz
 namespaces:
-- portalvortex-public
+- guise
+- oompaloompas
 
 endpoints:
   - type: pubportal
@@ -25,136 +26,44 @@ loadbalancers:
 - name: public
 - name: private
 
-#staging 192.168.219.3
-#prod 192.168.219.2
 
-# namespaces:
-# - portalaccess
-
-# backends:
-# # - domains:
-# #   - app.boreholevpn.com
-# #   certname: tls #app.boreholevpn.com
-# #   backend_connector: 192.168.219.2
-# #   vpn: False
-
-# # - domains:
-# #   - mordor-0.boreholevpn.com
-# #   certname: tls #app.boreholevpn.com
-# #   backend_connector: 192.168.219.2
-# #   vpn: True
-
-# # - domains:
-# #   - builder0.systemscorpltd.com
-# #   certname: tls #app.boreholevpn.com
-# #   backend_connector: 192.168.219.3
-# #   vpn: False
-
-# - domains:
-#   - autoblogger.bazaarlevel.com
-#   - autoblogger.learning2.live
-#   - autoblogger.dragonfirestars.com 
-#   - autoblogger.investorjester.com 
-#   - autoblogger.ezeeslutgirlz.com
-#   - autoblogger.redskysec.com
-#   - autoblogger.aurorafetish.com
-
-#   certname: tls
-#   backend_connector: 192.168.219.2
-#  vpn: True
-
+# Payload Delivery & Static site Hosting
 s3domains:
 - bucket: bzrblog.s3-website-us-east-1.amazonaws.com
   certname: tls
   domains:
   - dragonfirestars.com 
-  - investorjester.com 
-  - learning2.live 
-  - redskysec.com
   vpn: False
-  
-- bucket: blogworldz.s3-website-us-east-1.amazonaws.com
-  certname: tls
-  vpn: False
-  domains:
-  - asiangirlstuff.com 
- # - b10x.me 
- # - b10x.pro 
-  - bazaarlevel.com 
-  - breaktheflow.com 
-  - chronoswatcher.com
-  - confidencecorrector.com 
-  - cryptoauctionhouse.com 
-  - cyberallstars.com 
-  - digiart2k.com 
-  - digithrift.store 
-  - dustydomains.com 
-  - fotosnake.com 
-  - inostarve.com
-  - japanesesteetfashion.com 
-  - japanesestreetfash.com  
-  - justlink.me 
-  - kawaiifashionwear.com
-  - lolitafashionwear.com 
-  - marketingautomation.solutions 
-  - meowneow.com
-  - metalzine.co.za 
-  - noskeeto.com
-  - property2cash.co.za 
-  - randocrpyt.com 
-  - seekingselfyoga.com
-  - smartshopper.solutions
-  - sonicdawg.com 
-  - southafricacanibus.com
-  - surealmotion.com
-  - surrealmotion.com
-  - sweetypitreats.com
-  - swooppoop.com 
-  - swooppoopscoop.com 
-  - swoopuppoopscoop.com 
-  - systemscorpltd.com 
-  - therapyaura.com 
-  - theshoelord.com
-  - thirdparty.support
-  - threadofomen.com 
-  - threadofomen.co.za
-  - w00tw0rld.com 
-  - worldyogastore.com 
-  - yesiamdog.com 
 
 
-- bucket: auroransfw.s3-website-us-east-1.amazonaws.com
-  vpn: False
-  certname: tls #aurorafetish.com 
-  domains:
-  - aurorafetish.com 
-  - camzzr.com
-  
-- bucket: ezeeslutgirlz.s3-website-us-east-1.amazonaws.com
-  vpn: False
-  certname: tls #ezeeslutgirlz.com
-  domains:
-  - ezeeslutgirlz.com
-  - noodgirl.com
-  - iwillwear.com 
-  - meetlivevegasgirls.com 
-  - iwillwearwhatyouwant.com 
-  - stripcharity.com 
-  - sockslutz.com
+appdeploys:
+- name: gophish
+  #command:  ['python3', 'manage.py', 'runworker', 'channels']
+  instancetype: c2c
+  image:  us.gcr.io/redskysec/redteamz-beef
+
+- name: beef
+  #command:  ['python3', 'manage.py', 'runworker', 'channels']
+  instancetype: c2c
+  image:  us.gcr.io/redskysec/redteamz-gophish
 
 
-
-- bucket: vygeboommanor.s3-website-us-east-1.amazonaws.com
-  certname: tls #vygeboommanor.co.za
-  vpn: False
-  domains:
-  - vygeboommanor.co.za
-  - vygeboomguesthouse.co.za
-  - vygeboommanorguesthouse.co.za
-  - vygeboommanor.com
-  
-  
-
+databases:
+  - name: postgres
+    type: postgres
+    version: latest
+    image: postgres
+    port: 5432
+    volumes: 
+      - name: db
+        path: /var/lib/postgresql/data
+    
+  - name: redis
+    type: redis
+    image: redis:latest
+    version: latest
+    port: 6379
+    volumes: []
 
 
 cmvars:
