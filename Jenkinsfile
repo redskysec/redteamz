@@ -34,7 +34,7 @@ def buildPath(String buildPath){
     }
     notifyBuild("Templates Done " + buildPath)
 } 
-def buildImagePath(String buildPath, string imageName){
+def buildImagePath(String buildPath, String imageName){
   container('docker') {
     docker.withRegistry('https://us.gcr.io', 'gcr:st2dio') {
       app = docker.build("${imageName}" , "${buildPath}")  
