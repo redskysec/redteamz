@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ env }}-nginx-svc
+  namespace: {{application_name}}-{{ env }}
+  
+spec:
+  #externalTrafficPolicy: Cluster
+  ports:
+  - name: {{ env }}-nginx-80
+    port: 80
+    protocol: TCP
+    targetPort: 8880
+  - name: {{ env }}-nginx-443
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+
+  selector:
+    app: {{ env }}-nginx
+  sessionAffinity: None
+#  externalIPs:
+#    - {{ pubip }}
+  #type: LoadBalancer  

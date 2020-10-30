@@ -1,0 +1,10 @@
+{% for be in backends %}
+{% for domain in be.domains %} 
+{{domain  }}
+{% endfor %}
+{% endfor %}       
+{% for s3settings in s3domains %}
+{% for domain in s3settings.domains %}
+{{domain  }}
+{% endfor %}
+{% endfor %}       

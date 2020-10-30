@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: {{ env }}-nginx
+  name: {{ env }}-nginx
+  namespace: {{application_name}}-{{ env }}
+  
+spec:
+  selector:
+    matchLabels:
+      app: {{ env }}-nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ env }}-nginx
+    spec:
+      securityContext:
+        fsGroup: 101
+      containers:
+      - image: us.gcr.io/bzrstores/owasp-crs-nginx:latest
+        imagePullPolicy: Always
+        name: {{ env }}-nginx
+        volumeMounts:
+        - name: {{ env }}-nginxconf
+          mountPath: /etc/nginx/conf.d
+        - name: ssl
+          mountPath: "/etc/nginx/ssl"
+          readOnly: true
+        - name: dhparam
+          mountPath: "/etc/ssl/"
+          readOnly: true
+        #- name: {{ env }}-modsec-rules-conf 
+        #  mountPath: /etc/modsecurity.d/owasp-crs/rules 
+        ports:
+        - containerPort: 8880
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      volumes:
+      - name: {{ env }}-nginxconf
+        configMap:
+          name: {{ env }}-nginx-conf 
+          defaultMode: 0550
+      - name: {{ env }}-modsec-rules-conf 
+        configMap:
+          name: {{ env }}-modsec-rules-conf 
+          defaultMode: 0550
+      - name: ssl
+        secret:
+          secretName: {{ env}}-ssl 
+          defaultMode: 0550
+
+      - name: dhparam
+        secret:
+          secretName: {{ env }}-dhparam
+          defaultMode: 0550

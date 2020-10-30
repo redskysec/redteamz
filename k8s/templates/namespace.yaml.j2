@@ -1,0 +1,11 @@
+{% for namespace in namespaces %}
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: {{ env }}
+  name: {{application_name}}-{{ env }}
+
+{% endfor %}

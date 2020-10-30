@@ -1,0 +1,62 @@
+    server_name  www.b10x.me www.b10x.pro www.bazaarlevel.com www.breaktheflow.com www.chronoswatcher.com www.confidencecorrector.com www.cryptoauctionhouse.com www.cyberallstars.com www.digiart2k.com www.digithrift.store www.dustydomains.com www.fotosnake.com www.inostarve.com www.japanesesteetfashion.com www.japanesestreetfash.com www.justlink.me www.kawaiifashionwear.com www.lolitafashionwear.com www.marketingautomation.solutions www.meowneow.com www.metalzine.co.za www.noskeeto.com www.property2cash.co.za www.randocrpyt.com www.seekingselfyoga.com www.sonicdawg.com www.southafricacanibus.com www.surealmotion.com www.surrealmotion.com www.sweetypitreats.com www.swooppoop.com www.swooppoopscoop.com www.swoopuppoopscoop.com www.systemscorpltd.com www.therapyaura.com www.theshoelord.com www.thirdparty.support www.threadofomen.com www.w00tw0rld.com www.worldyogastore.com www.yesiamdog.com ;
+    rewrite ^(.*) https://$domain.com$1 permanent;
+}  
+
+# HTTPS server
+  server {
+
+
+    listen 443 http2 ssl;
+    server_name meowneow.com digithrift.store *.asiangirlstuff.com breaktheflow.com cryptoauctionhouse.com dustydomains.com justlink.me property2cash.co.za sonicdawg.com surrealmotion.com surealmotion.com sweetypitreats.com systemscorpltd.com therapyaura.com thirdparty.support w00tw0rld.com yesiamdog.com southafricacanibus.com seekingselfyoga.com randocrpyt.com inostarve.com bazaarlevel.com *.bazaarlevel.com threadofomen.com *.threadofomen.com *.threadofomen.co.za *.threadofomen.co.za metalzine.co.za *.metalzine.co.za marketingautomation.solutions *.marketingautomation.solutions *.b10x.me b10x.me b10x.pro *.b10x.pro cyberallstars.com *.cyberallstars.com chronoswatcher.com *.chronoswatcher.com lolitafashionwear.com *.lolitafashionwear.com japanesestreetfash.com  *.japanesestreetfash.com *.kawaiifashionwear.com kawaiifashionwear.com japanesesteetfashion.com *.japanesesteetfashion.com swooppoop.com *.swooppoop.com swoopuppoopscoop.com  *.swoopuppoopscoop.com swooppoopscoop.com *.swooppoopscoop.com *.noskeeto.com noskeeto.com digiart2k.com *.digiart2k.com *.theshoelord.com theshoelord.com *.therapyaura.com therapyaura.com *.confidencecorrector.com confidencecorrector.com *.smartshopper.solutions fotosnake.com *.fotosnake.com *.worldyogastore.com worldyogastore.com;
+    ssl_certificate /code/ssl/cert.pem;
+    ssl_certificate_key /code/ssl/key.pem;
+
+    keepalive_timeout   70;
+
+
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    location /admin {
+         return 404;
+
+    }
+
+    location /django-admin {
+         return 404;
+
+    }
+
+    location /phpmyadmin {
+         return 404;
+
+    }
+
+    location /wp-admin {
+         return 404;
+
+    }
+
+    error_page 404 =200 /;
+
+    location / {
+        resolver 8.8.8.8;
+        set $bucket "blogworldz.s3-website-us-east-1.amazonaws.com";
+        rewrite ^([^.]*[^/])$ $1/ permanent;
+
+        # matches: branch-name.repository-name
+        proxy_pass http://$bucket/${host}${uri};
+        
+
+
+        proxy_intercept_errors on;
+        proxy_redirect off;
+        proxy_set_header Host $bucket;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_hide_header x-amz-id-2;
+        proxy_hide_header x-amz-request-id;
+    }
+
+  }
+

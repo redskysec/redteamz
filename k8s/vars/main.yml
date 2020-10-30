@@ -1,0 +1,209 @@
+application_name: portalvortex-public
+namespaces:
+- portalvortex-public
+
+endpoints:
+  - type: pubportal
+pubip: 45.56.104.173
+
+environments:
+- name: production
+  status: 0
+- name: canary
+  status: 0
+- name: staging
+  status: 1
+- name: development
+  status: 1
+
+vpn: 97.107.141.203
+vpn_ips: 
+- 97.107.141.203
+- 192.168.219.0/24
+
+loadbalancers:
+- name: public
+- name: private
+
+#staging 192.168.219.3
+#prod 192.168.219.2
+
+# namespaces:
+# - portalaccess
+
+# backends:
+# # - domains:
+# #   - app.boreholevpn.com
+# #   certname: tls #app.boreholevpn.com
+# #   backend_connector: 192.168.219.2
+# #   vpn: False
+
+# # - domains:
+# #   - mordor-0.boreholevpn.com
+# #   certname: tls #app.boreholevpn.com
+# #   backend_connector: 192.168.219.2
+# #   vpn: True
+
+# # - domains:
+# #   - builder0.systemscorpltd.com
+# #   certname: tls #app.boreholevpn.com
+# #   backend_connector: 192.168.219.3
+# #   vpn: False
+
+# - domains:
+#   - autoblogger.bazaarlevel.com
+#   - autoblogger.learning2.live
+#   - autoblogger.dragonfirestars.com 
+#   - autoblogger.investorjester.com 
+#   - autoblogger.ezeeslutgirlz.com
+#   - autoblogger.redskysec.com
+#   - autoblogger.aurorafetish.com
+
+#   certname: tls
+#   backend_connector: 192.168.219.2
+#  vpn: True
+
+s3domains:
+- bucket: bzrblog.s3-website-us-east-1.amazonaws.com
+  certname: tls
+  domains:
+  - dragonfirestars.com 
+  - investorjester.com 
+  - learning2.live 
+  - redskysec.com
+  vpn: False
+  
+- bucket: blogworldz.s3-website-us-east-1.amazonaws.com
+  certname: tls
+  vpn: False
+  domains:
+  - asiangirlstuff.com 
+ # - b10x.me 
+ # - b10x.pro 
+  - bazaarlevel.com 
+  - breaktheflow.com 
+  - chronoswatcher.com
+  - confidencecorrector.com 
+  - cryptoauctionhouse.com 
+  - cyberallstars.com 
+  - digiart2k.com 
+  - digithrift.store 
+  - dustydomains.com 
+  - fotosnake.com 
+  - inostarve.com
+  - japanesesteetfashion.com 
+  - japanesestreetfash.com  
+  - justlink.me 
+  - kawaiifashionwear.com
+  - lolitafashionwear.com 
+  - marketingautomation.solutions 
+  - meowneow.com
+  - metalzine.co.za 
+  - noskeeto.com
+  - property2cash.co.za 
+  - randocrpyt.com 
+  - seekingselfyoga.com
+  - smartshopper.solutions
+  - sonicdawg.com 
+  - southafricacanibus.com
+  - surealmotion.com
+  - surrealmotion.com
+  - sweetypitreats.com
+  - swooppoop.com 
+  - swooppoopscoop.com 
+  - swoopuppoopscoop.com 
+  - systemscorpltd.com 
+  - therapyaura.com 
+  - theshoelord.com
+  - thirdparty.support
+  - threadofomen.com 
+  - threadofomen.co.za
+  - w00tw0rld.com 
+  - worldyogastore.com 
+  - yesiamdog.com 
+
+
+- bucket: auroransfw.s3-website-us-east-1.amazonaws.com
+  vpn: False
+  certname: tls #aurorafetish.com 
+  domains:
+  - aurorafetish.com 
+  - camzzr.com
+  
+- bucket: ezeeslutgirlz.s3-website-us-east-1.amazonaws.com
+  vpn: False
+  certname: tls #ezeeslutgirlz.com
+  domains:
+  - ezeeslutgirlz.com
+  - noodgirl.com
+  - iwillwear.com 
+  - meetlivevegasgirls.com 
+  - iwillwearwhatyouwant.com 
+  - stripcharity.com 
+  - sockslutz.com
+
+
+
+- bucket: vygeboommanor.s3-website-us-east-1.amazonaws.com
+  certname: tls #vygeboommanor.co.za
+  vpn: False
+  domains:
+  - vygeboommanor.co.za
+  - vygeboomguesthouse.co.za
+  - vygeboommanorguesthouse.co.za
+  - vygeboommanor.com
+  
+  
+
+
+
+cmvars:
+      SERVERNAME: localhost
+
+      #############################################
+      # CRS Variables
+      #############################################
+      # Paranoia Level
+      PARANOIA: 0
+      # Inbound and Outbound Anomaly Score Threshold
+      ANOMALYIN: 0
+      ANOMALYOUT: 0
+      PROXY: 0
+      # Executing Paranoia Level
+      # - EXECUTING_PARANOIA=2
+
+      #######################################################
+      # Reverse Proxy mode
+      # (only available if SETPROXY was enabled during the
+      # parent ModSecurity image)
+      #######################################################
+      # PROXYLOCATION: Application Backend of Reverse Proxy
+      # - PROXYLOCATION=http://app:8000/
+      #
+      # If needed: add own httpd-proxy.conf (only available if SETPROXY
+      # was enabled during build of parent ModSecurity image)
+      #  - ./httpd-proxy.conf:/usr/local/apache2/conf/extra/httpd-proxy.conf
+
+      #######################################################
+      # Various CRS Variables with Default Values
+      #######################################################
+      #- ENFORCE_BODYPROC_URLENCODED=1
+      #- ALLOWED_METHODS=GET HEAD POST OPTIONS
+      #- ALLOWED_REQUEST_CONTENT_TYPE=application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|text/plain
+      #- ALLOWED_REQUEST_CONTENT_TYPE_CHARSET=utf-8|iso-8859-1|iso-8859-15|windows-1252
+      #- ALLOWED_HTTP_VERSIONS=HTTP/1.0 HTTP/1.1 HTTP/2 HTTP/2.0
+      #- RESTRICTED_EXTENSIONS=.asa/ .asax/ .ascx/ .axd/ .backup/ .bak/ .bat/ .cdx/ .cer/ .cfg/ .cmd/ .com/ .config/ .conf/ .cs/ .csproj/ .csr/ .dat/ .db/ .dbf/ .dll/ .dos/ .htr/ .htw/ .ida/ .idc/ .idq/ .inc/ .ini/ .key/ .licx/ .lnk/ .log/ .mdb/ .old/ .pass/ .pdb/ .pol/ .printer/ .pwd/ .resources/ .resx/ .sql/ .sys/ .vb/ .vbs/ .vbproj/ .vsdisco/ .webinfo/ .xsd/ .xsx/
+      #- RESTRICTED_HEADERS=/proxy/ /lock-token/ /content-range/ /if/
+      #- STATIC_EXTENSIONS=/.jpg/ /.jpeg/ /.png/ /.gif/ /.js/ /.css/ /.ico/ /.svg/ /.webp/
+
+      #######################################################
+      # CRS Variables with Default Value unlimited
+      #######################################################
+      #- MAX_NUM_ARGS=255
+      #- ARG_NAME_LENGTH=100
+      #- ARG_LENGTH=400
+      #- TOTAL_ARG_LENGTH=64000
+      #- MAX_FILE_SIZE=1048576
+      #- COMBINED_FILE_SIZES=1048576
+
+    
