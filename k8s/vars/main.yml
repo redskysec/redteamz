@@ -40,13 +40,22 @@ appdeploys:
 - name: gophish
   #command:  ['python3', 'manage.py', 'runworker', 'channels']
   instancetype: c2c
-  image:  us.gcr.io/redskysec/redteamz-beef
+  #image:  us.gcr.io/redskysec/redteamz-gophish
+  image: matteoggl/gophish
+  tcp-ports:
+    - 3333
+    - 80
+  udp-ports: []
 
 - name: beef
   #command:  ['python3', 'manage.py', 'runworker', 'channels']
   instancetype: c2c
-  image:  us.gcr.io/redskysec/redteamz-gophish
+  image:  us.gcr.io/redskysec/redteamz-beef
 
+# - name: phishingfrenzy
+#   #command:  ['python3', 'manage.py', 'runworker', 'channels']
+#   instancetype: c2c
+#   image:  b00stfr3ak/ubuntu-phishingfrenzy
 
 databases:
   - name: postgres

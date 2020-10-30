@@ -173,8 +173,9 @@ spec:
       steps {
         notifyBuild('Build Docker')
         script {
-           buildImagePath(PATH_SERVERS_BASE_GOPHISH, IMAGE_TAG_GOPHISH)
            buildImagePath(PATH_SERVERS_BASE_BEEF, IMAGE_TAG_BEEF)
+           buildImagePath(PATH_SERVERS_BASE_GOPHISH, IMAGE_TAG_GOPHISH)
+
         }
       }  
    }
