@@ -1,0 +1,4 @@
+export WORKSPACE=~/.redskysec; 
+mkdir $WORKSPACE;
+cd $WORKSPACE;
+git clone git@github.com:redskysec/redteamz.git

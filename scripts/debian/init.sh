@@ -31,5 +31,4 @@ cd ~
 mkdir workspace
 cd workspace
 
-git clone git@github.com:sharpspring/shsp-redteam.git
 """
