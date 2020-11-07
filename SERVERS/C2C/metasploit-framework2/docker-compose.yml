@@ -4,6 +4,7 @@ services:
     container_name: ms
     #image: metasploitframework/metasploit-framework:latest
     image: metasploit:dev
+    command: ['bash']
     environment:
       DATABASE_URL: postgres://postgres@db:5432/msf?pool=200&timeout=5
     links:

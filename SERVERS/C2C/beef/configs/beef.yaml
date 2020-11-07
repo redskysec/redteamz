@@ -162,7 +162,7 @@ beef:
         network:
             enable: true
         metasploit:
-            enable: true
+            enable: false
         social_engineering:
             enable: true
         xssrays:

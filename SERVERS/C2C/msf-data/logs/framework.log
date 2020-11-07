@@ -21,3 +21,17 @@
 [10/20/2020 05:09:34] [e(0)] core: Dependency for windows/x64/encrypted_reverse_tcp is not supported
 [10/20/2020 05:09:34] [e(0)] core: Dependency for windows/encrypted_reverse_tcp is not supported
 [10/20/2020 05:09:34] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/gather/office365userenum.py, unknown module type
+[10/31/2020 10:04:04] [e(0)] core: Failed to connect to the database: No database YAML file
+[10/31/2020 10:04:16] [e(0)] core: Dependency for windows/encrypted_shell_reverse_tcp is not supported
+[10/31/2020 10:04:16] [e(0)] core: Dependency for windows/x64/encrypted_shell_reverse_tcp is not supported
+[10/31/2020 10:04:16] [e(0)] core: Dependency for windows/encrypted_reverse_tcp is not supported
+[10/31/2020 10:04:16] [e(0)] core: Dependency for windows/x64/encrypted_reverse_tcp is not supported
+[10/31/2020 10:04:21] [e(0)] core: Unexpected output running /usr/src/metasploit-framework/modules/auxiliary/gather/get_user_spns.py:
+/usr/lib/python2.7/site-packages/OpenSSL/crypto.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in a future release.
+  from cryptography import x509
+
+[10/31/2020 10:04:21] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/gather/office365userenum.py - LoadError  Try running file manually to check for errors or dependency issues.
+[10/31/2020 10:04:23] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/scanner/msmail/onprem_enum.go - Errno::ENOENT No such file or directory - go
+[10/31/2020 10:04:23] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/scanner/msmail/exchange_enum.go - Errno::ENOENT No such file or directory - go
+[10/31/2020 10:04:23] [e(0)] core: Unable to load module /usr/src/metasploit-framework/modules/auxiliary/scanner/msmail/host_id.go - Errno::ENOENT No such file or directory - go
+[10/31/2020 10:04:23] [i(0)] core: Database doesn't exist "msf?pool=200&timeout=5", attempting to create it.

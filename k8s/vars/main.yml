@@ -41,7 +41,7 @@ appdeploys:
   #command:  ['python3', 'manage.py', 'runworker', 'channels']
   instancetype: c2c
   #image:  us.gcr.io/redskysec/redteamz-gophish
-  image: matteoggl/gophish
+  image: gophish/gophish
   tcp-ports:
     - 3333
     - 80
@@ -56,6 +56,19 @@ appdeploys:
 #   #command:  ['python3', 'manage.py', 'runworker', 'channels']
 #   instancetype: c2c
 #   image:  b00stfr3ak/ubuntu-phishingfrenzy
+ingress:
+- name: phisherprice
+  svc: gophish
+  port: 80
+  domains:
+  - mobiledisconnect.com
+
+nginxservice:
+- name: phishingadmin
+  svc: gophish
+  port: 3333
+  domains:
+  - pa-00x.tryb.co.za
 
 databases:
   - name: postgres
