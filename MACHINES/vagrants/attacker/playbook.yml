@@ -1,0 +1,94 @@
+---
+- hosts: all
+  become: yes
+  vars:
+      src_dir: /usr/local/src
+  tasks:
+  - name: update repositories cache
+    apt:
+      update_cache: yes
+      cache_valid_time: 86400
+      upgrade: full
+  - name: install by apt-get
+    apt:
+        name:
+                #            - fzf
+            - autoconf
+            - libtool
+            - libssl-dev
+            - airgraph-ng
+            - ltrace
+            - bettercap
+
+  - name: set default shell zsh
+    user:
+        name: root
+        shell: /bin/zsh
+
+  - name: create a symbolic link - zshrc
+    file:
+        force: yes
+        dest: /root/.zshrc
+        src: /vagrant/dotfiles/.zshrc
+        state: link
+
+  - name: create a symbolic link - vimrc
+    file:
+        force: yes
+        dest: /root/.vimrc
+        src: /vagrant/dotfiles/.vimrc
+        state: link
+
+  - name: create a .vim directory
+    file:
+        follow: yes
+        path: /root/.vim/colors
+        state: directory
+
+  - name: create a symbolic link - vim theme
+    file:
+        force: yes
+        dest: /root/.vim/colors/jellybeans.vim
+        src: /vagrant/dotfiles/jellybeans.vim
+        state: link
+
+  - name: create directory for dein.vim
+    file:
+        follow: no
+        path: /root/.vim/dein
+        state: directory
+
+  - name: download dein.vim installer
+    get_url: 
+        url: 'https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh'
+        dest: /root/.vim/dein
+        mode: 0755
+
+  - name: install dein.vim
+    command: sh /root/.vim/dein/installer.sh /root/.vim/dein
+    changed_when: no
+
+  - name: install zsh-anyframe
+    git:
+        repo: 'https://github.com/mollifier/anyframe'
+        dest: /root/.zsh/anyframe
+
+  # - name: download hcxdumptool for wpa2 crack
+  #   git:
+  #       repo: 'https://github.com/ZerBea/hcxdumptool.git'
+  #       dest: "{{ src_dir }}/hcxdumptool"
+  #
+  # - name: install hcxdumptool
+  #   make: 
+  #       chdir: "{{ src_dir }}/hcxdumptool"
+  #       target: install
+  #
+  # - name: download hcxtools for wpa2 crack
+  #   git:
+  #       repo: 'https://github.com/ZerBea/hcxtools.git'
+  #       dest: "{{ src_dir }}/hcxtools"
+  #
+  # - name: install hcxtools
+  #   make: 
+  #       chdir: "{{ src_dir }}/hcxtools"
+  #       target: install
